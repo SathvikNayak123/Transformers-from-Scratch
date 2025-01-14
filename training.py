@@ -109,8 +109,6 @@ def build_tokenizer(config, dataset, lang):
 
 def get_dataset(config):
     raw_ds = load_dataset('Helsinki-NLP/opus_books', f'{config["lang_src"]}-{config["lang_trgt"]}', split = 'train')
-    if raw_ds is None:
-        print("----------------empty----------------")
 
     tokenizer_src = build_tokenizer(config, raw_ds, config['lang_src'])
     tokenizer_trgt = build_tokenizer(config, raw_ds, config['lang_trgt'])
