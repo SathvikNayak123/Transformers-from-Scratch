@@ -8,7 +8,7 @@ from tokenizers.models import WordLevel
 from tokenizers.trainers import WordLevelTrainer
 from tokenizers.pre_tokenizers import Whitespace
 from pathlib import Path
-from training.data_prep import DataPrep, causal_mask
+from data_prep import DataPrep, causal_mask
 from transformer.transformer import build_model
 from config import get_config, get_weights_file_path
 from torch.utils.tensorboard import SummaryWriter
