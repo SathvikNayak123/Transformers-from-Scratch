@@ -49,7 +49,7 @@ def build_model(src_vocab_size :int, trgt_vocab_size :int, src_seq_len :int, trg
     for _ in range(N):
         self_attention = MultiHeadAttention(d_model, h, dropout)
         ffn = FeedForwardNetwork(d_model , d_ff, dropout)
-        encoder_block = EncoderBlock(self_attention, ffn, dropout)
+        encoder_block = EncoderBlock(d_model, self_attention, ffn, dropout)
         encoder_blocks.append(encoder_block)
 
     decoder_blocks = []
@@ -57,7 +57,7 @@ def build_model(src_vocab_size :int, trgt_vocab_size :int, src_seq_len :int, trg
         self_attention = MultiHeadAttention(d_model, h, dropout)
         cross_attention = MultiHeadAttention(d_model, h, dropout)
         ffn = FeedForwardNetwork(d_model , d_ff, dropout)
-        decoder_block = DecoderBlock(self_attention, cross_attention, ffn, dropout)
+        decoder_block = DecoderBlock(d_model, self_attention, cross_attention, ffn, dropout)
         decoder_blocks.append(decoder_block)
 
     encoder = Encoder(nn.ModuleList(encoder_blocks))

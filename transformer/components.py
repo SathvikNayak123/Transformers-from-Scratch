@@ -44,11 +44,11 @@ class PositionalEncodings(nn.Module):
 
 class LayerNorm(nn.Module):
 
-    def __init__(self, eps :float = 10**-6):
+    def __init__(self, features: int, eps :float = 10**-6):
         super().__init__()
         self.eps = eps
-        self.alpha = nn.Parameter(torch.ones(1)) # multiplied
-        self.beta = nn.Parameter(torch.ones(1)) # added
+        self.alpha = nn.Parameter(torch.ones(features)) # multiplied
+        self.beta = nn.Parameter(torch.ones(features)) # added
 
     def forward(self, x):
         mean = x.mean(dim = -1, keepdim = True)
@@ -119,10 +119,10 @@ class MultiHeadAttention(nn.Module):
     
 class ResidualConnection(nn.Module):
 
-    def __init__(self, dropout :float):
+    def __init__(self, features: int, dropout :float):
         super().__init__()
         self.dropout = nn.Dropout(dropout)
-        self.norm = LayerNorm()
+        self.norm = LayerNorm(features)
 
     def forward(self, x, sublayer):
         # apply layer norm first then add sublayer
