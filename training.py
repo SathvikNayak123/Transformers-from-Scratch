@@ -77,6 +77,9 @@ def run_validation(model, val_ds, tokenizer_src, tokenizer_trgt, max_len, device
             print_msg(f"{f'TARGET: ':>12}{target_text}")
             print_msg(f"{f'PREDICTED: ':>12}{model_output_text}")
 
+            if count == num_samples:
+                break
+
         if writer:
 
             # Compute the BLEU metric
