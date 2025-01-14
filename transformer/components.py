@@ -39,12 +39,12 @@ class PositionalEncodings(nn.Module):
         self.register_buffer("pe", pe)
 
     def forward(self, x):
-        x = x + (self.pe[:, :x.shape[1], :]).requires_grad(False) #  tensor wont be learned
+        x = x + self.pe[:, :x.shape[1], :].detach() #  tensor wont be learned
         return self.dropout(x)
 
 class LayerNorm(nn.Module):
 
-    def __init__(self, eps :float = 10 **-6):
+    def __init__(self, eps :float = 10**-6):
         super().__init__()
         self.eps = eps
         self.alpha = nn.Parameter(torch.ones(1)) # multiplied

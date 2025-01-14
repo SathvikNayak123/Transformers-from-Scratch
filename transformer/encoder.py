@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 import math
-from components import MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
+from transformer.components import MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
 
 class EncoderBlock(nn.Module):
      

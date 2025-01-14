@@ -1,9 +1,9 @@
 import torch
 from torch import nn
 import math
-from components import InputEmbeddings, PositionalEncodings, MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
-from encoder import EncoderBlock, Encoder
-from decoder import DecoderBlock, Decoder, ProjectionLayer
+from transformer.components import InputEmbeddings, PositionalEncodings, MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
+from transformer.encoder import EncoderBlock, Encoder
+from transformer.decoder import DecoderBlock, Decoder, ProjectionLayer
 
 class Transformer(nn.Module):
 
@@ -40,7 +40,7 @@ class Transformer(nn.Module):
 def build_model(src_vocab_size :int, trgt_vocab_size :int, src_seq_len :int, trgt_seq_len :int, d_model :int = 512, d_ff :int = 2048,N :int = 6, h :int = 8, dropout :float = 0.25):
 
     src_embed = InputEmbeddings(d_model, src_vocab_size)
-    trgt_embed = InputEmbeddings(d_model, trgt_seq_len, trgt_vocab_size)
+    trgt_embed = InputEmbeddings(d_model, trgt_vocab_size)
 
     src_pos = PositionalEncodings(d_model, src_seq_len, dropout)
     trgt_pos = PositionalEncodings(d_model, trgt_seq_len, dropout)

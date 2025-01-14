@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 import math
-from components import MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
+from transformer.components import MultiHeadAttention, FeedForwardNetwork, ResidualConnection, LayerNorm
 
 class DecoderBlock(nn.Module):
 
@@ -14,12 +14,13 @@ class DecoderBlock(nn.Module):
         self.self_attention = self_attention
         self.cross_attention = cross_attention
         self.FFN = FFN
-        self.residual_conn  = nn.ModuleList([ResidualConnection(dropout) for _ in range(3)])
+        self.residual_conn = nn.ModuleList([ResidualConnection(dropout) for _ in range(3)])
     
     def forward(self, x, encoder_output, src_mask, trgt_mask):
         x = self.residual_conn[0](x, lambda x : self.self_attention(x, x, x, trgt_mask))
         x = self.residual_conn[1](x, lambda x : self.cross_attention(x, encoder_output, encoder_output, src_mask))
         x = self.residual_conn[2](x, self.FFN)
+        return x
 
 class Decoder(nn.Module):
 
