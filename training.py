@@ -62,7 +62,7 @@ def run_validation(model, val_ds, tokenizer_src, tokenizer_trgt, max_len, device
 
             assert encoder_input.size(0) == 1, "Batch size must be 1 for validation"
 
-            model_output = greedy_decode(model, encoder_mask, tokenizer_src, tokenizer_trgt, max_len , device)
+            model_output = greedy_decode(model, encoder_input, encoder_mask, tokenizer_src, tokenizer_trgt, max_len , device)
 
             source_text = batch['src_text'][0]
             target_text = batch['trgt_text'][0]
