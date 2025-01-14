@@ -60,8 +60,8 @@ def build_model(src_vocab_size :int, trgt_vocab_size :int, src_seq_len :int, trg
         decoder_block = DecoderBlock(d_model, self_attention, cross_attention, ffn, dropout)
         decoder_blocks.append(decoder_block)
 
-    encoder = Encoder(nn.ModuleList(encoder_blocks))
-    decoder = Decoder(nn.ModuleList(decoder_blocks))
+    encoder = Encoder(d_model, nn.ModuleList(encoder_blocks))
+    decoder = Decoder(d_model, nn.ModuleList(decoder_blocks))
 
     projection_layer = ProjectionLayer(d_model, trgt_vocab_size)
 
